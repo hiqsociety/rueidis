@@ -100,7 +100,7 @@ func _newPipe(connFn func() (net.Conn, error), option *ClientOption, r2ps bool) 
 		p.cache = newLRU(option.CacheSizeEachConn)
 	}
 	p.pshks.Store(emptypshks)
-
+/*
 	helloCmd := []string{"HELLO", "3"}
 	if option.Password != "" && option.Username == "" {
 		helloCmd = append(helloCmd, "AUTH", "default", option.Password)
@@ -193,6 +193,11 @@ func _newPipe(connFn func() (net.Conn, error), option *ClientOption, r2ps bool) 
 		}
 		p.version = 5
 	}
+	*/
+			if p.onInvalidations = option.OnInvalidations; p.onInvalidations != nil {
+			p.background()
+		}
+
 	return p, nil
 }
 
