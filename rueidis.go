@@ -256,15 +256,18 @@ func NewClient(option ClientOption) (client Client, err error) {
 		option.PipelineMultiplex = singleClientMultiplex(option.PipelineMultiplex)
 		return newSentinelClient(&option, makeConn)
 	}
+	/*
 	if client, err = newClusterClient(&option, makeConn); err != nil {
 		if len(option.InitAddress) == 1 && (err.Error() == redisErrMsgCommandNotAllow || strings.Contains(strings.ToUpper(err.Error()), "CLUSTER")) {
+		*/
 			option.PipelineMultiplex = singleClientMultiplex(option.PipelineMultiplex)
 			client, err = newSingleClient(&option, client.(*clusterClient).single(), makeConn)
-		} else if client != (*clusterClient)(nil) {
+	/*	} else if client != (*clusterClient)(nil) {
 			client.Close()
 			return nil, err
 		}
 	}
+	*/
 	return client, err
 }
 
